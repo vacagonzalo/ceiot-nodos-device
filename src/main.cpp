@@ -10,7 +10,7 @@ WiFiClient wifi;
 PubSubClient mqtt;
 
 long lastReconnectAttemp{0};
-
+int frec{TIME};
 void setup()
 {
   Serial.begin(BAUD_RATE);
@@ -35,7 +35,23 @@ void loop()
 
 void on_message(char *topic, byte *payload, unsigned int length)
 {
-  Serial.print(topic);
+  if (strcmp(topic, "cmnd/esp32/frec"))
+  {
+  }
+  else if (strcmp(topic, "cmnd/reset-all"))
+  {
+  }
+  else if (strcmp(topic, "cmnd/esp32/reset"))
+  {
+  }
+  else if (strcmp(topic, "cmnd/esp32/calibrate"))
+  {
+  }
+  else
+  {
+    Serial.println(topic);
+  }
+
   Serial.print(": ");
   for (unsigned int i = 0; i < length; i++)
   {
@@ -49,7 +65,7 @@ void send_data()
   String temperature = String(random(MIN_TEMPERATURE, MAX_TEMPERATURE));
   String my_message = String(DEVICE + temperature);
   mqtt.publish(DATA, my_message.c_str());
-  delay(TIME);
+  delay(frec);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
