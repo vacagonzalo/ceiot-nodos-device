@@ -22,7 +22,8 @@
 
 #define DATA "data/temp"
 #define CMND "cmnd/esp32"
-#define RESET "cmnd/all"
+#define RESET_ALL "reset/all"
+#define RESET "reset/esp32"
 
 #define MAX_TEMPERATURE 27
 #define MIN_TEMPERATURE 12

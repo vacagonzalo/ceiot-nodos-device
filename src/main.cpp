@@ -110,4 +110,5 @@ void subscribe_to_topics()
 {
   mqtt.subscribe(CMND);
   mqtt.subscribe(RESET);
+  mqtt.subscribe(RESET_ALL);
 }
