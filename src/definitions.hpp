@@ -21,6 +21,7 @@
 #define PRONT_MQTT_CONNECTED "device connected to "
 
 #define DATA "data/temp"
+#define LIVE "live/esp32"
 #define CMND "cmnd/esp32"
 #define RESET_ALL "reset/all"
 #define RESET "reset/esp32"

@@ -11,6 +11,7 @@ PubSubClient mqtt;
 
 long lastReconnectAttemp{0};
 int frec{TIME};
+int direction{0};
 void setup()
 {
   Serial.begin(BAUD_RATE);
@@ -37,15 +38,22 @@ void on_message(char *topic, byte *payload, unsigned int length)
 {
   if (strcmp(topic, "cmnd/esp32/frec"))
   {
+    Serial.println("frec");
   }
   else if (strcmp(topic, "cmnd/reset-all"))
   {
+    Serial.println("reset-all");
+    direction = 0;
   }
   else if (strcmp(topic, "cmnd/esp32/reset"))
   {
+    Serial.println("reset");
+    direction = 0;
   }
   else if (strcmp(topic, "cmnd/esp32/calibrate"))
   {
+    Serial.println("calibrate");
+    direction = 1;
   }
   else
   {
@@ -64,7 +72,15 @@ void send_data()
 {
   String temperature = String(random(MIN_TEMPERATURE, MAX_TEMPERATURE));
   String my_message = String(DEVICE + temperature);
-  mqtt.publish(DATA, my_message.c_str());
+  if (direction == 0)
+  {
+    mqtt.publish(DATA, my_message.c_str());
+  }
+  else
+  {
+    mqtt.publish(LIVE, my_message.c_str());
+  }
+
   delay(frec);
 }
 
